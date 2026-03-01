@@ -1,0 +1,28 @@
+# Don't show a new line at the start of the prompt
+add_newline = false
+
+[line_break]
+disabled = true
+
+# Full path configuration
+[directory]
+truncation_length = 0
+truncate_to_repo = true
+style = "cyan"
+before_repo_root_style = "bright-black"
+repo_root_style = "bold blue"
+fish_style_pwd_dir_length = 2
+
+[git_branch]
+format = "[$symbol$branch(:$remote_branch)]($style) "
+symbol = '🌱'
+style = "bold purple"
+
+
+# Vim Mode Indicators
+[character]
+success_symbol = "[❯](bold green)"
+error_symbol = "[❯](bold red)"
+vimcmd_symbol = "[❮](bold yellow)"
+vimcmd_visual_symbol = "[❮](bold orange)"
+vimcmd_replace_symbol = "[❮](bold purple)"
