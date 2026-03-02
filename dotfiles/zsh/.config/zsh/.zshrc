@@ -4,11 +4,6 @@ export LS_COLORS="di=1;34:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 
 ###
-# Theme
-###
-eval "$(starship init zsh)"
-
-###
 # Zsh Autosuggestions
 ###
 source $HOME/.nix-profile/share/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -92,6 +87,33 @@ alias stowhome='stow -t ~ '
 ###
 # Initialize Nix
 ###
-if [ -e ~/.nix-profile/etc/profile.d/nix.sh ]; then
-  source ~/.nix-profile/etc/profile.d/nix.sh
+if [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]; then
+    source "$HOME/.nix-profile/etc/profile.d/nix.sh"
 fi
+
+###
+# XDG base directory specifications
+###
+# Define base XDG paths
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_DATA_HOME="$HOME/.local/share"
+
+# Set base directories
+export CARGO_HOME="$XDG_DATA_HOME/cargo"
+export CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv"
+export GNUPGHOME="$XDG_DATA_HOME/gnupg"
+export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc"
+mkdir -p "$XDG_CONFIG_HOME/docker"
+export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
+export DOCKER_HOST="unix://${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/docker.sock"
+# Move Vim files to Cache
+# This tells Vim where to put the info file and the netrw history
+mkdir -p "$XDG_CACHE_HOME/vim"
+export VIMINIT="set viminfofile=$XDG_CACHE_HOME/vim/viminfo | source $XDG_CONFIG_HOME/vim/vimrc"
+
+###
+# Theme
+###
+eval "$(starship init zsh)"
+
