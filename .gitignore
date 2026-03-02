@@ -1,0 +1,11 @@
+# Zsh artifacts (These are generated automatically)
+.zcompdump*
+.zsh_history
+
+# Vim temporary files
+.netrwhist
+*.swp
+.swo
+
+# macOS system files
+.DS_Store
