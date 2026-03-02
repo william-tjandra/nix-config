@@ -113,6 +113,29 @@ mkdir -p "$XDG_CACHE_HOME/vim"
 export VIMINIT="set viminfofile=$XDG_CACHE_HOME/vim/viminfo | source $XDG_CONFIG_HOME/vim/vimrc"
 
 ###
+# SSH Agent Setup
+###
+# Path to a file that stores the agent environment variables
+SSH_ENV="$HOME/.ssh/agent_env"
+
+function start_agent {
+    /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
+    chmod 600 "${SSH_ENV}"
+    echo "✅ SSH Agent started (PID: $SSH_AGENT_PID)"
+}
+
+# Check if the env file exists and source it
+if [ -f "${SSH_ENV}" ]; then
+    . "${SSH_ENV}" > /dev/null
+    # Check if the PID in the env file is actually a running ssh-agent
+    ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent > /dev/null || {
+        start_agent
+    }
+else
+    start_agent
+fi
+
+###
 # Theme
 ###
 eval "$(starship init zsh)"
