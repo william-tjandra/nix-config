@@ -5,4 +5,6 @@ with pkgs; [
   zsh-autosuggestions
   nerd-fonts.jetbrains-mono
   starship
+  docker-compose
+  devpod
 ]
